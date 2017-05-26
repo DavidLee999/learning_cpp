@@ -10,7 +10,7 @@ void call(int severity ...)
 	for(;;){
 		const char* p = va_arg(ap, const char*);
 		
-		if (p == nullptr ) break;
+		if ( p == nullptr ) break;
 		
 		cout << p << ' ';
 	}
@@ -28,7 +28,8 @@ int main()
 	const char *q { "a test" };
 	
 	int a = 65;
-	call(1, p, "it's", q,  &a, nullptr);
+	
+	call(1, p, "it's", q, &a, nullptr);
 	
 	return 0;
 }
