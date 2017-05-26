@@ -8,9 +8,9 @@ void call(int severity ...)
 	va_start(ap, severity);
 	
 	for(;;){
-		char* p = va_arg(ap, char*);
+		const char* p = va_arg(ap, const char*);
 		
-		if (p == "end") break;
+		if (p == nullptr ) break;
 		
 		cout << p << ' ';
 	}
@@ -27,7 +27,8 @@ int main()
 	const char *p { "variable arguments" };
 	const char *q { "a test" };
 	
-	call(1, p, "it's", q, "end");
+	int a = 65;
+	call(1, p, "it's", q,  &a, nullptr);
 	
 	return 0;
 }
