@@ -9,7 +9,8 @@ int main()
 	
 	cin >> y >> c;
 	
-	cout << endl << [&y](int a) mutable ->int { return ( y > 0 ) ? y + a : -y + a; } (c) <<endl;
+	[&y](int a) mutable ->int { return y = ( y > 0 ) ? y + a : -y + a; } (c);
 	
+	cout << endl << y;
 	return 0;
 }
