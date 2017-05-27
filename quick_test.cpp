@@ -1,29 +1,13 @@
 #include <iostream>
 using namespace std;
 
-class num{
-private:
-	int n;
-	int m;
-public:
-	num(int i = {}, int j = {}):n{i}, m{j} {}
-	
-	void print() { cout << n << endl << m << endl; }
-};
-
 int main()
 {
-	num a;
+	double d = 1.99;
 	
-	a.print();
+	int a = static_cast<int> (d);
 	
-	num b{1,2};
-	
-	b.print();
-	
-	num c{1};
-	
-	c.print();
+	cout<<a;
 	
 	return 0;
 }
