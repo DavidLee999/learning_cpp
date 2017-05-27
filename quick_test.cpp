@@ -13,7 +13,7 @@ public:
 
 int main()
 {
-	num a{};
+	num a;
 	
 	a.print();
 	
