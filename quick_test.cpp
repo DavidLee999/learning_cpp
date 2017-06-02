@@ -1,12 +1,10 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 int main()
 {
-	double d = 1.99;
-	
-	int a = static_cast<int> (d);
-	
+	vector<int> a {1,2,3,4,5};
 	cout<<a;
 	
 	return 0;
