@@ -1,25 +1,23 @@
 #include <iostream>
-#include <string>
-//#include <vector>
+#include <windows.h>
+#include <ctime>
 using namespace std;
-
-struct Work{
-	string author;
-	string name;
-	int year;
-};
 
 int main()
 {
-	Work s9 { "Mike", "None", 1999 };
-	
-	Work s8 = s9;
-	
-	Work s7 {};
-	
-	cout << s9.author << " " << s9.name << " " << s9.year << endl;
-	cout << s8.author << " " << s8.name << " " << s8.year << endl;
-	cout << s7.author << " " << s7.name << " " << s7.year << endl;
+	time_t timeBegin, timeEnd;  
+    timeBegin = time(NULL);  
+    Sleep(1000);  
+    timeEnd = time(NULL);  
+    printf("%d\n", timeEnd - timeBegin);  
+      
+      
+    //用clock()来计时  毫秒  
+    clock_t  clockBegin, clockEnd;  
+    clockBegin = clock();  
+    Sleep(800);  
+    clockEnd = clock();  
+    printf("%d\n", clockEnd - clockBegin);
 	
 	return 0;
 }
