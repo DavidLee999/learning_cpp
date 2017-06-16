@@ -1,23 +1,23 @@
 #include <iostream>
-#include <windows.h>
-#include <ctime>
 using namespace std;
 
+template <typename T>
+class Complex{
+public:
+	T re, im;
+	
+public:
+		Complex( T r, T i ) : re { r }, im { i } {};
+};
 int main()
 {
-	time_t timeBegin, timeEnd;  
-    timeBegin = time(NULL);  
-    Sleep(1000);  
-    timeEnd = time(NULL);  
-    printf("%d\n", timeEnd - timeBegin);  
-      
-      
-    //用clock()来计时  毫秒  
-    clock_t  clockBegin, clockEnd;  
-    clockBegin = clock();  
-    Sleep(800);  
-    clockEnd = clock();  
-    printf("%d\n", clockEnd - clockBegin);
+	Complex<int> a { 2, 2 };
+	
+	cout << a.re << " " << a.im << endl;
+	
+	Complex<double> b { 2.7, 2 };
+	
+	cout << b.re << " " << b.im << endl;
 	
 	return 0;
 }
