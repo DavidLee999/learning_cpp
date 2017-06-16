@@ -25,13 +25,14 @@ inline Complex<T> & Complex<T>::operator += ( const Complex & rhs )
 }
 
 template <typename T>
-Complex<T> operator + ( Complex<T> lhs, Complex<T> rhs )
+Complex<T> operator + ( const Complex<T> lhs, const Complex<T> rhs )
 {
-	return lhs += rhs;
+	Complex<T> res { lhs };
+	
+	res += rhs;
 }
 
-template <typename T>
-template <typename U>
+template <typename T, typename U>
 Complex<T> operator + ( const Complex<T> & lhs, const U & rhs )
 {
 	Complex<T> res { lhs };
@@ -40,6 +41,16 @@ Complex<T> operator + ( const Complex<T> & lhs, const U & rhs )
 	
 	return res;
 }
+
+template <typename T, typename U>
+Complex<T> operator + ( const U & lhs, const Complex<T> & rhs )
+{
+	Complex<T> res { rhs };
+	
+	res.re += static_cast<T> ( lhs );
+	
+	return res;
+} 
 
 constexpr Complex<double> operator ""_i ( long double d )
 {
@@ -50,9 +61,15 @@ constexpr Complex<double> operator ""_i ( long double d )
 int main()
 {
 	
-	Complex<double> z1 { 2, 3 };
+	Complex<double> z1 { 2.2, 3.1 };
 	
-	Complex<double> z2 = z1 + 2.1_i;
+	Complex<double> z2 = 2.1_i;
+	
+	z1 = z1 + 2;
+	
+	z2 = 3 + z2;
+	
+	cout << z1.re << " " << z1.im << endl;
 	cout << z2.re << " " << z2.im << endl;
 	
 	return 0;
