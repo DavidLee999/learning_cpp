@@ -10,6 +10,11 @@ public:
 public:
 		Complex( T& r, T& i = T{} ) : re { r }, im { i } {}
 		constexpr Complex( const T& r = T{}, const T& i= T {} ) : re { r }, im { i } {}
+		Complex( const Complex & rhs ) = default;
+		Complex( Complex && rhs ) = default;
+		Complex & operator = ( const Complex & rhs ) = default;
+		Complex & operator = ( Complex && rhs ) = default;
+		
 		
 		
 		Complex & operator += ( const Complex &);
@@ -63,8 +68,8 @@ int main()
 	
 	Complex<double> z1 { 2.2, 3.1 };
 	
-	Complex<double> z2 = 2.1_i;
-	
+	Complex<double> z2 = z1 + 2.1_i;
+
 	z1 = z1 + 2;
 	
 	z2 = 3 + z2;
