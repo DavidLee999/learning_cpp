@@ -17,11 +17,11 @@ public:
 		
 		
 		
-		Complex & operator += ( const Complex &);
+		Complex & operator += ( const Complex);
 };
 
 template <typename T>
-inline Complex<T> & Complex<T>::operator += ( const Complex & rhs )
+inline Complex<T> & Complex<T>::operator += ( const Complex rhs )
 {
 	re += rhs.re;
 	im += rhs.im;
@@ -35,10 +35,12 @@ Complex<T> operator + ( const Complex<T> lhs, const Complex<T> rhs )
 	Complex<T> res { lhs };
 	
 	res += rhs;
+	
+	return res;
 }
 
 template <typename T, typename U>
-Complex<T> operator + ( const Complex<T> & lhs, const U & rhs )
+Complex<T> operator + ( const Complex<T> lhs, const U rhs )
 {
 	Complex<T> res { lhs };
 	
@@ -48,7 +50,7 @@ Complex<T> operator + ( const Complex<T> & lhs, const U & rhs )
 }
 
 template <typename T, typename U>
-Complex<T> operator + ( const U & lhs, const Complex<T> & rhs )
+Complex<T> operator + ( const U lhs, const Complex<T> rhs )
 {
 	Complex<T> res { rhs };
 	
