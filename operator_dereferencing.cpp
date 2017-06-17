@@ -17,15 +17,15 @@ struct Ptr1 {
 struct Ptr2 {
 	Ptr1* ptr;
 	
-	/* Ptr1* operator -> () const // return a pointer 
+	Ptr1* operator -> () const // return a pointer 
 	{
 		return ptr;
-	} */
+	} 
 	
-	Ptr1& operator -> () const // return the dereferencing, the address which holds the pointer *orig
+	/* Ptr1& operator -> () const // return the dereferencing, the address which holds the pointer *orig
 	{
 		return *ptr;
-	}
+	} */
 };
 
 int main()
@@ -36,6 +36,7 @@ int main()
 	Ptr1 p1;
 	p1.orig = &o;
 	
+	cout << "&p1->value = " << &(p1->value) << endl;
 	cout << "Ptr1: p1->value = " << p1->value << endl; // object to be "pointed" should have the same name of its definition
 	                                                    // and cannot be "asigned" to an arbitrary name or the name of the pointer.
 														
@@ -49,5 +50,15 @@ int main()
 	cout << "p1.operator->()->value = " << p1.operator->()->value << endl;
 	
 	cout << "Ptr2: p2->orig->value = " << p2->orig->value << endl; // return the final value
+	
+	cout << "p2.operator->() = " << p2.operator->() << endl;
+	
+	cout << "p2.operator->()->orig = " << p2.operator->()->orig << endl;
+	
+	cout << "p2.operator->()->orig->value = " << p2.operator->()->orig->value << endl;
+	
+	cout << "p2.operator->()->operator->() = " << p2.operator->()->operator->() << endl;
+	
+	cout << "p2.operator->()->operator->()_value = " << p2.operator->()->operator->()->value << endl;
 	return 0;
 }
