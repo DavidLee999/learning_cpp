@@ -8,8 +8,8 @@ public:
 	T re, im;
 	
 public:
-		//explicit Complex( T& r, T& i = T{} ) : re { r }, im { i } {}
-		explicit constexpr Complex( const T& r = T{}, const T& i= T {} ) : re { r }, im { i } {}
+		Complex( T& r, T& i = T{} ) : re { r }, im { i } { cout << "j" <<endl;}
+		constexpr Complex( const T& r = T{}, const T& i= T {} ) : re { r }, im { i } {}
 		Complex( const Complex & rhs ) = default;
 		Complex( Complex && rhs ) = default;
 		Complex & operator = ( const Complex & rhs ) = default;
@@ -72,7 +72,7 @@ int main()
 	
 	Complex<double> z2 = z1 + 2.1_i;
 	
-	Complex<double> z3 = Complex<double> { 2.2 };
+	Complex<double> z3 { 2.2 };
 	
 	z1 = z1 + 2;
 	
