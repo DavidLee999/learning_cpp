@@ -8,7 +8,7 @@ public:
 	T re, im;
 	
 public:
-		Complex( T& r, T& i = T{} ) : re { r }, im { i } { cout << "j" <<endl;}
+        //Complex( const T& r = T{}, const T& i = T{} ) : re { r }, im { i } { }
 		constexpr Complex( const T& r = T{}, const T& i= T {} ) : re { r }, im { i } {}
 		Complex( const Complex & rhs ) = default;
 		Complex( Complex && rhs ) = default;
@@ -59,7 +59,7 @@ Complex<T> operator + ( const U lhs, const Complex<T> rhs )
 	return res;
 } 
 
-constexpr Complex<double> operator ""_i ( long double d )
+constexpr Complex<double> operator ""_i ( long double d ) // require a constexpr constructor
 {
 	return Complex<double>{ 0.0, static_cast<double>( d ) };
 }
@@ -70,13 +70,13 @@ int main()
 	
 	Complex<double> z1 { 2.2, 3.1 };
 	
-	Complex<double> z2 = z1 + 2.1_i;
+	const Complex<double> z2 = z1 + 2.1_i;
 	
 	Complex<double> z3 { 2.2 };
 	
 	z1 = z1 + 2;
 	
-	z2 = 3 + z2;
+	//z2 = 3 + z2;
 	
 	cout << z1.re << " " << z1.im << endl;
 	cout << z2.re << " " << z2.im << endl;
