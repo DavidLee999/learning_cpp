@@ -8,11 +8,11 @@ public:
 	T re, im;
 	
 public:
-		Complex( T& r, T& i = T{} ) : re { r }, im { i } {}
+		//Complex( T& r, T& i = T{} ) : re { r }, im { i } {}
 		constexpr Complex( const T& r = T{}, const T& i= T {} ) : re { r }, im { i } {}
 		
 		
-		Complex & operator += ( const Complex &);
+		Complex & operator += ( const Complex & );
 };
 
 template <typename T>
@@ -30,21 +30,29 @@ Complex<T> operator + ( Complex<T> lhs, Complex<T> rhs )
 	return lhs += rhs;
 }
 
-template <typename T, typename U>
-Complex<T> operator + ( const Complex<T> & lhs, const U & rhs )
-{
-	Complex<T> res { lhs };
-	
-	res.re += static_cast<T> ( rhs );
-	
-	return res;
-}
-
 constexpr Complex<double> operator ""_i ( long double d )
 {
 	return Complex<double>{ 0.0, static_cast<double>( d ) };
 }
 
+constexpr int ipow( int x, int n ) { return ( n > 0 ) ? x * ipow( x, n-1 ) : 1; }
+
+template<char c>
+constexpr int b3_helper()
+{
+	static_assert( c < '3', "not a ternary digit" );
+	return c;
+}
+
+template<char c, char... tail>
+constexpr int b3_helper()
+{
+	static_assert( c < '3', "not a ternary digit" );
+	return ipow( 3, sizeof...(tail)) * (c - '0') + b3_helper(tail...);
+}
+
+template<char... chars>
+constexpr int operator ""_b3() { return b3_helper(chars...); }
 
 int main()
 {
@@ -54,5 +62,8 @@ int main()
 	Complex<double> z2 = z1 + 2.1_i;
 	cout << z2.re << " " << z2.im << endl;
 	
+	auto x = 201_b3;
+	
+	cout << x << endl;
 	return 0;
 }
