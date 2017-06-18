@@ -8,7 +8,7 @@ public:
 	T re, im;
 	
 public:
-		explicit Complex( T& r, T& i = T{} ) : re { r }, im { i } {}
+		//explicit Complex( T& r, T& i = T{} ) : re { r }, im { i } {}
 		explicit constexpr Complex( const T& r = T{}, const T& i= T {} ) : re { r }, im { i } {}
 		Complex( const Complex & rhs ) = default;
 		Complex( Complex && rhs ) = default;

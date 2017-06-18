@@ -30,8 +30,7 @@ Complex<T> operator + ( Complex<T> lhs, Complex<T> rhs )
 	return lhs += rhs;
 }
 
-template <typename T>
-template <typename U>
+template <typename T, typename U>
 Complex<T> operator + ( const Complex<T> & lhs, const U & rhs )
 {
 	Complex<T> res { lhs };
@@ -50,7 +49,7 @@ constexpr Complex<double> operator ""_i ( long double d )
 int main()
 {
 	
-	Complex<double> z1 { 2, 3 };
+	Complex<double> z1 { 2 };
 	
 	Complex<double> z2 = z1 + 2.1_i;
 	cout << z2.re << " " << z2.im << endl;
