@@ -49,7 +49,46 @@ private:
 	void move_from( String& x );
 };
 
+char* expand( const char* ptr, int n )
+{
+	char* p = new char[n];
+	strcpy( p, ptr );
+	return p;
+}
 
+void String::copy_from( const String& x )
+{
+	if ( x.sz <= short_max )
+	{
+		memcpy( this, &x, sizeof(x) );
+		ptr = ch;
+	}
+	else
+	{
+		ptr = expand( x.ptr, x.sz + 1 );
+		sz = s.sz;
+		space = 0;
+	}
+}
+
+void String::move_from( String& x )
+{
+	if ( x.sz <= short_max )
+	{
+		memcpy(this, &x, sizeof(x) );
+		ptr = ch;
+	}
+	else
+	{
+		ptr = x.ptr;
+		sz = x.sz;
+		space = x.space;
+		
+		x.ptr = x.ch;
+		s.sz = 0;
+		s.ch[0] = 0;
+	}
+}
 
 
 int hash( const String& s )
