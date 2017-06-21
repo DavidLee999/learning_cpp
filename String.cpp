@@ -90,6 +90,11 @@ void String::move_from( String& x )
 	}
 }
 
+String::String() : sz { 0 }, ptr { ch } { ch[0] = 0; }
+
+String::String( const char* p ) : sz { strlen(p) }, ptr { (sz <= short_max) ? ch : new char[sz + 1] }, space { 0 }
+{}
+
 
 int hash( const String& s )
 {
