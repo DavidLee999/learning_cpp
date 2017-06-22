@@ -93,9 +93,65 @@ void String::move_from( String& x )
 String::String() : sz { 0 }, ptr { ch } { ch[0] = 0; }
 
 String::String( const char* p ) : sz { strlen(p) }, ptr { (sz <= short_max) ? ch : new char[sz + 1] }, space { 0 }
-{}
+{
+	strcpy(ptr, p);
+}
 
+String::String( const String& x )
+{ copy_from( x ); }
 
+String::String( String&& x )
+{ move_from( x ); }
+
+String& String::operator = ( cosnt Strng& x )
+{
+	if ( this == &x )
+		return *this;
+	char* p = ( short_max < sz ) ? ptr : 0;
+	copy_from( x );
+	delete[] p;
+	
+	return *this;
+}
+
+String& String::operator = ( String&& x )
+{
+	if ( this == &x )
+		return *this;
+	if ( short_max < sz ) 
+		delete[] ptr;
+	
+	move_from( x );
+	return *this;
+}
+
+String& String::operator += ( char c )
+{
+	if ( sz == short_max )
+	{
+		int n = sz + sz + 2;
+		ptr = expand( ptr, n );
+		space = n - sz - 2;
+	}
+	else if ( short_max < sz )
+	{
+		if ( space == 0 )
+		{
+			int n = sz + sz + 2;
+			char* p = expand( ptr, n );
+			delete[] ptr;
+			ptr = p;
+			space = n - sz - 2;
+		}
+		else
+			--space;
+	}
+	
+	ptr[sz] = c;
+	ptr[++sz] = 0;
+	
+	return* this;
+}
 int hash( const String& s )
 {
 	int h { s[0] };
