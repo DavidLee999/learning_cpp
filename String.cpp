@@ -26,8 +26,8 @@ public:
 	
 	String& operator += ( char c );
 	
-	char* c_str() const { return ptr; }
-	//const char* c_str() const { return ptr; }
+	char* c_str() { return ptr; }
+	const char* c_str() const { return ptr; }
 	
     int size() const { return sz; }
 	int capacity() const
