@@ -1,4 +1,6 @@
 #include <string.h>
+#include <ostream>
+#include <istream>
 
 class String{
 public:
@@ -152,6 +154,66 @@ String& String::operator += ( char c )
 	
 	return* this;
 }
+
+ostrema& operator << (ostream& os, String& s)
+{
+	return os << s.c_str();
+}
+
+istream& operator >> (istream& is, String& s)
+{
+	s = "";
+	is >> ws;
+	char ch = '';
+	while( is.get( ch ) && !isspace( ch ) )
+		s += ch;
+	return is;
+}
+
+bool operator == ( const String& a, const String& b )
+{
+	if ( a.size() != b.size() )
+		return false;
+	
+	for ( int i = 0; i != a.size(); ++i )
+		if ( a[i] != b[i] )
+			return false;
+	
+	return true;
+}
+
+bool operator != ( const String& a, const String& b )
+{
+	return !( a == b );
+}
+
+char* begin ( String& x ) { return x.c_str(); }
+char* end ( String& x ) { return x.c_str() + x.size(); }
+
+const char* begin ( const String& x ) { return x.c_str(); }
+const char* end ( const String& x ) { return x.c_str() + x.size(); }
+
+String& operator += ( String& a, const String& b )
+{
+	for( auto x : b )
+		a += x;
+	
+	return a;
+}
+
+String operator + ( const String& a, const String& b )
+{
+	String res { a };
+	res += b;
+	
+	return res;
+}
+
+String operator ""_s ( const char* p, site_t )
+{
+	return String { p };
+}
+
 int hash( const String& s )
 {
 	int h { s[0] };
