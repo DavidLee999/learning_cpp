@@ -2,12 +2,13 @@
 #include <ostream>
 #include <istream>
 #include <iostream>
+#include <typeinfo>
 
 class String{
 public:
     String();
 	
-	explicit String( const char* p );
+	String( const char* p );
 	
 	String( const String& );
 	String& operator = ( const String& );
@@ -156,7 +157,7 @@ String& String::operator += ( char c )
 	return* this;
 }
 
-std::ostream& operator << (std::ostream& os, String& s)
+std::ostream& operator << (std::ostream& os, const String& s)
 {
 	return os << s.c_str();
 }
@@ -165,9 +166,9 @@ std::istream& operator >> (std::istream& is, String& s)
 {
 	s = String{};
 	char ch {};
-	is >> ch;
 	while( is.get( ch ) && !isspace( ch ) )
 		s += ch;
+		
 	return is;
 }
 
@@ -227,6 +228,31 @@ int hash( const String& s )
 
 int main()
 {
-	std::cout << "hello.";
+	String s { "abcdefghij" };
+	std::cout << s << std::endl;
+	
+	s += 'k';
+	s += 'l';
+	s += 'm';
+	s += 'n';
+	
+	std::cout << s << '\n';
+	
+	String s2 = "Hell";
+	s2 += " and high water";
+	
+	std::cout << s2 << '\n';
+	
+	String s3 = "qwerty";
+	s3 = s3;
+	
+	String s4 = "the quick brown fox jumped over the lazy dog"_s;
+	
+	std::cout << s3 << " " << s4 << '\n';
+	std::cout << s + "."+ s3 + String{"."} + "horsefeathers\n";
+	
+	String buf;
+	while ( std::cin >> buf && buf != "quit" )
+		std::cout << buf << " " << buf.size() << " " << buf.capacity() << '\n';
 	return 0;
 }
