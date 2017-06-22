@@ -1,6 +1,7 @@
 #include <string.h>
 #include <ostream>
 #include <istream>
+#include <iostream>
 
 class String{
 public:
@@ -14,7 +15,7 @@ public:
 	String( String&& x );
 	String& operator = ( String&& x );
 	
-	~String() { if ( short_max < sz ) delete() ptr; }
+	~String() { if ( short_max < sz ) delete[] ptr; }
 	
 	char& operator [] ( int n ) { return ptr[n]; }
 	char operator [] ( int n ) const { return ptr[n]; }
@@ -24,8 +25,8 @@ public:
 	
 	String& operator += ( char c );
 	
-	const char* c_str() { return ptr; }
-	const char* c_str() const { return ptr; }
+	char* c_str() const { return ptr; }
+	//const char* c_str() const { return ptr; }
 	
     int size() const { return sz; }
 	int capacity() const
@@ -34,7 +35,7 @@ public:
 	
 private:
 	static const int short_max = 15;
-	int sz;
+	size_t sz;
 	char* ptr;
 	union{
 		int space;
@@ -68,7 +69,7 @@ void String::copy_from( const String& x )
 	else
 	{
 		ptr = expand( x.ptr, x.sz + 1 );
-		sz = s.sz;
+		sz = x.sz;
 		space = 0;
 	}
 }
@@ -87,8 +88,8 @@ void String::move_from( String& x )
 		space = x.space;
 		
 		x.ptr = x.ch;
-		s.sz = 0;
-		s.ch[0] = 0;
+		x.sz = 0;
+		x.ch[0] = 0;
 	}
 }
 
@@ -105,7 +106,7 @@ String::String( const String& x )
 String::String( String&& x )
 { move_from( x ); }
 
-String& String::operator = ( cosnt Strng& x )
+String& String::operator = ( const String& x )
 {
 	if ( this == &x )
 		return *this;
@@ -155,16 +156,16 @@ String& String::operator += ( char c )
 	return* this;
 }
 
-ostrema& operator << (ostream& os, String& s)
+std::ostream& operator << (std::ostream& os, String& s)
 {
 	return os << s.c_str();
 }
 
-istream& operator >> (istream& is, String& s)
+std::istream& operator >> (std::istream& is, String& s)
 {
-	s = "";
-	is >> ws;
-	char ch = '';
+	s = String{};
+	char ch {};
+	is >> ch;
 	while( is.get( ch ) && !isspace( ch ) )
 		s += ch;
 	return is;
@@ -209,7 +210,7 @@ String operator + ( const String& a, const String& b )
 	return res;
 }
 
-String operator ""_s ( const char* p, site_t )
+String operator ""_s ( const char* p, size_t )
 {
 	return String { p };
 }
@@ -222,4 +223,10 @@ int hash( const String& s )
 		h ^= s[i] >> 1;
 	
 	return h;
+}
+
+int main()
+{
+	std::cout << "hello.";
+	return 0;
 }
