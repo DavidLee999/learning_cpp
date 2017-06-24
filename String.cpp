@@ -2,7 +2,6 @@
 #include <ostream>
 #include <istream>
 #include <iostream>
-#include <typeinfo>
 
 class String{
 public:
