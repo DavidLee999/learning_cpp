@@ -230,6 +230,7 @@ int main()
 {
 	String s { "abcdefghij" };
 	std::cout << s << std::endl;
+	//std::cout << s.at(77) <<std::endl;
 	
 	s += 'k';
 	s += 'l';
