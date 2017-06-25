@@ -1,5 +1,5 @@
 #include <iostream>
-//using namespace std;
+#include <ostream>
 
 template <typename T>
 class Complex{
@@ -34,32 +34,20 @@ constexpr Complex<double> operator ""_i ( long double d )
 	return Complex<double>{ 0.0, static_cast<double>( d ) };
 }
 
-constexpr int ipow( int x, int n ) { return ( n > 0 ) ? x * ipow( x, n-1 ) : 1; }
-
-template<char c>
-constexpr int b3_helper()
+template <typename T>
+std::ostream& operator << ( std::ostream& out, const Complex<T>& obj )
 {
-	static_assert( c < '3', "not a ternary digit" );
-	return c;
+    out << obj.re << '+' << obj.im << 'i';
+    
+    return out;
 }
-
-template<char c, char... tail>
-constexpr int b3_helper()
-{
-	static_assert( c < '3', "not a ternary digit" );
-	return ipow( 3, sizeof...(tail)) * (c - '0') + b3_helper(tail...);
-}
-
-template<char... chars>
-constexpr int operator ""_b3() { return b3_helper(chars...); }
-
 int main()
 {
 	
 	Complex<double> z1 { 2 };
 	
 	Complex<double> z2 = z1 + 2.1_i;
-	std::cout << z2.re << " " << z2.im << std::endl;
+	std::cout << z1 << std::endl << z2 << std::endl;
 	
 	
 	return 0;
