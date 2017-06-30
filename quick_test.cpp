@@ -9,8 +9,8 @@ public:
 	T re, im;
 	
 public:
-		Complex( T& r = T(), T& i = T() ) : re { r }, im { i } {}
-		constexpr Complex( const T& r = T(), const T& i = T() ) : re { r }, im { i } {}
+    Complex( T& r = T(), T& i = T() ) : re { r }, im { i } {}
+    constexpr Complex( const T& r = T(), const T& i = T() ) : re { r }, im { i } {}
 		
 };
 
