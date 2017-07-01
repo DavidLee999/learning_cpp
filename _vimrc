@@ -19,6 +19,8 @@ Bundle 'majutsushi/tagbar'
 Bundle 'scrooloose/nerdtree'
 Bundle 'bling/vim-airline'
 Bundle 'davidhalter/jedi-vim'
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'SirVer/ultisnips'
 call vundle#end()
 filetype plugin indent on
 
@@ -36,14 +38,18 @@ set shiftwidth=4
 set autoindent
 set ai!
 set tabstop=4
+set noundofile
 set nobackup
+set noswapfile
 set cursorline
 set cursorcolumn
 set softtabstop=4
 set diffexpr=MyDiff()
 let Tlist_Auto_Open=0
-set tags=tags;
+set tags=.\tags;
 set tags+=C:\stl_tags;
+set showtabline=2
+
 set autochdir
 " 随 vim 自启动
 let g:indent_guides_enable_on_vim_startup=1
@@ -59,8 +65,17 @@ let OmniCpp_ShowScopeInAbbr=0
 let OmniCpp_ShowPrototypeInAbbr=1
 let OmniCpp_MayCompleteDot=1 
 let OmniCpp_MayCompleteArrow=1
-let OmniCpp_MayCompleteScope=1 
-imap <TAB> <C-X><C-N>
+let OmniCpp_MayCompleteScope=1
+let OmniCpp_DefaultNamespaces=["std", "_GLIBCXX_STD"]
+au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+set completeopt=menuone,menu,longest
+
+map <C-F11> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR> 
+noremap <F11> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<cr> 
+inoremap <F11> <Esc>:!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<cr> 
+
+highlight Pmenu    guibg=darkgrey  guifg=black
+highlight PmenuSel guibg=lightgrey guifg=black
 
 "设置tagbar使用的ctags的插件,必须要设置对
 let g:tagbar_ctags_bin='ctags'
@@ -79,7 +94,7 @@ map <F2> :NERDTreeToggle<CR>
 
 set laststatus=2
 
-
+let g:UltiSnipsSnippetDirectories=['mysnips']
 
 "定义CompileRun函数，用来调用进行编译和运行
 func CompileRun()
@@ -89,7 +104,7 @@ func CompileRun()
 			exec "!gcc % -o %<"
 	"c++程序
 		elseif &filetype == 'cpp'
-			exec "!g++ % -o %< -std=c++11"
+			exec "!g++ -W -Wall % -g -o %< -std=c++11"
 	"Java程序
 		elseif &filetype == 'java'
 			exec "!javac %"
@@ -104,13 +119,20 @@ func Run()
 	elseif &filetype == 'java'
 		exec "!java %<"
 	elseif &filetype == 'python'
-		exec "!python %"
+		exec "!py -3 %"
 	endif
 endfunc
 
+"定义Run函数
+func RunPython2()	
+	if &filetype == 'python'
+		exec "!py -2 %"
+	endif
+endfunc
 
 map <c-r> :call CompileRun()<CR>
 map <F5> :call Run()<CR>
+map <c-p> :call RunPython2()<CR>
 
 
 function MyDiff()
