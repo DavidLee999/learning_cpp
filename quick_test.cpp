@@ -1,6 +1,7 @@
 #include <iostream>
 #include <typeinfo>
-#include <vector>
+#include <unordered_map>
+#include <map>
 
 using namespace std;
 
@@ -8,7 +9,7 @@ template <typename T>
 class Complex{
 public:
 	T re, im;
-	
+
 public:
     Complex( T& r = T(), T& i = T() ) : re { r }, im { i } {}
     constexpr Complex( const T& r = T(), const T& i = T() ) : re { r }, im { i } {}
@@ -24,27 +25,13 @@ constexpr Complex<double> operator ""i ( long double d )
 
 int main()
 {
-	vector<Complex<double>> z1{ {1, 2}, {3, 0}, {0, 2}, {2.3i} };
+	map<int, char> s { {4,'a'}, {2,'k'}, {0,'2'}, {8,'o'} };
+    for( map<int, char>::const_iterator a = s.cbegin(); a != s.cend(); ++a )
+        std::cout << (*a).first << " " << (*a).second << '\t';
 
-    vector<Complex<double>> z2 = z1;
-
-    z2[2].real() = 3;
-
-     for( int i = 0; i < z1.size(); ++i )
-        cout << z1[i].re << " + " << z1[i].im << "i" << endl;
-
-    for( int i = 0; i < z1.size(); ++i )
-        cout << z2[i].re << " + " << z2[i].im << "i" << endl;
-
-    vector<Complex<double>> z3;
-    z3 = move(z1);
-
-    z3[2].real() = 1;
-
-    for( int i = 0; i < z1.size(); ++i )
-        cout << z1[i].re << " + " << z1[i].im << "i" << endl;
-
-    for( int i = 0; i < z3.size(); ++i )
-        cout << z3[i].re << " + " << z3[i].im << "i" << endl;
+    unordered_map<int, char> s2 { {4,'a'}, {2,'k'}, {0,'2'}, {8,'o'} };
+    std::cout << std::endl;
+    for( unordered_map<int, char>::const_iterator a = s2.cbegin(); a != s2.cend(); ++a )
+        std::cout << (*a).first << " " << (*a).second << '\t';
 	return 0;
 }
