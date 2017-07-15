@@ -22,20 +22,36 @@ constexpr Complex<double> operator ""i ( long double d )
 	return Complex<double>{ 0.0, static_cast<double>( d ) };
 }
 
-
+class A
+{
+    public:
+        A(const char *s)
+        {
+            cout<<s<<endl;// ~A() {}
+        }
+};
+class B : virtual public A
+{
+    public:
+        B(const char *s1, const char *s2):A(s1)  {  cout<<s2<<endl; }
+};
+class C : virtual public A
+{
+    public:
+        C(const char *s1, const char *s2):A(s1)  {  cout<<s2<<endl; }
+};
+class D : public B, public C
+{
+    public:
+        D(const char *s1, const char *s2, const char *s3, const char *s4) :B(s1, s2), C(s1, s3), A(s1)
+        {
+            cout<<s4<<endl;
+        }
+};
 int main()
 {
-	map<int, char> s { {4,'a'}, {2,'k'}, {0,'2'}, {8,'o'} };
-    s[5] = 'l';
-    for( map<int, char>::const_iterator a = s.cbegin(); a != s.cend(); ++a )
-        std::cout << (*a).first << " " << (*a).second << '\t';
+    D *ptr = new D("class A", "class B", "class C", "class D");
+    delete ptr;
 
-    unordered_map<int, char> s2 { {4,'a'}, {2,'k'}, {0,'2'}, {8,'o'} };
-    s2[0] = 't';
-    std::cout << std::endl;
-    for( unordered_map<int, char>::const_iterator a = s2.cbegin(); a != s2.cend(); ++a )
-        std::cout << (*a).first << " " << (*a).second << '\t';
-
-    std::cout << s2.max_bucket_count();
-	return 0;
+    return 0;
 }
