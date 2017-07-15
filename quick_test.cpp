@@ -35,5 +35,7 @@ int main()
     std::cout << std::endl;
     for( unordered_map<int, char>::const_iterator a = s2.cbegin(); a != s2.cend(); ++a )
         std::cout << (*a).first << " " << (*a).second << '\t';
+
+    std::cout << s2.max_bucket_count();
 	return 0;
 }
