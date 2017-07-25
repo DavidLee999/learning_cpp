@@ -2,6 +2,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cstring>
+#include <cstdio>
 
 int main()
 {
@@ -16,5 +18,18 @@ int main()
     std::string ss3 { ss, 10, 9 };
 
     std::cout << ss2 << '\n' << ss3 << '\n';
+
+    std::string str { "- This, a sample string." };
+    char* cstr = new char[str.length() + 1];
+
+    std::strcpy( cstr, str.c_str() );
+    char* pch = strtok( cstr, " ,.-" );
+
+    while( pch != NULL )
+    {
+        printf( "%s\n", pch );
+        pch = strtok( NULL, " ,.-" );
+    }
+    printf( "%s\n", pch );
     return 0;
 }
