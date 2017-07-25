@@ -31,5 +31,7 @@ int main()
         pch = strtok( NULL, " ,.-" );
     }
     printf( "%s\n", pch );
+    pch = strtok( NULL, " ,.-" );
+    printf( "%s\n", pch );
     return 0;
 }
