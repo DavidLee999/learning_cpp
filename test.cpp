@@ -31,7 +31,14 @@ int main()
         pch = strtok( NULL, " ,.-" );
     }
     printf( "%s\n", pch );
-    pch = strtok( NULL, " ,.-" );
-    printf( "%s\n", pch );
+
+    std::string s = "123.45678901234";
+    size_t dist {};
+
+    int x = stoi( s, &dist );
+    std::cout << x << " " << dist << '\n';
+
+    double dd = stod( s, &dist );
+    std::cout << dd << " " << dist << '\n';
     return 0;
 }
