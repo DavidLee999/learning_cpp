@@ -4,6 +4,7 @@
 #include <string>
 #include <cstring>
 #include <cstdio>
+#include <fstream>
 
 int main()
 {
@@ -40,5 +41,27 @@ int main()
 
     double dd = stod( s, &dist );
     std::cout << dd << " " << dist << '\n';
+
+    std::ifstream is( "1.txt", std::ifstream::in );
+    if(is)
+    {
+        is.seekg( 5, is.end );
+        int length = is.tellg();
+        is.seekg( 1, is.beg );
+
+        std::cout << length <<'\n';
+
+        char* buf = new char[length];
+        is.read( buf, length );
+
+        std::cout << is.gcount() << '\n';
+        is.close();
+
+        for( int i = 0; i < length; ++i )
+            std::cout << buf[i];
+        std::cout << std::endl;
+
+        delete[] buf;
+    }
     return 0;
 }
